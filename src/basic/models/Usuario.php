@@ -54,43 +54,22 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
-  /**
-     * {@inheritdoc}
-     */
-    public static function findIdentity($id)
-    {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
-    }
+ 
+      //Nuevos metodos implementados 
+      public static function findIdentity($id){
+        return self::findOne($id);
+    } 
 
-    /**
-     * {@inheritdoc}
-     */
+    
+   
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
+        return self::findOne(['accessToken'=>$token]);
+    } 
 
-        return null;
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+    
+    public static function findByUsername($username){
+        return self::findOne(['username'=>$username]);
     }
 
     /**
