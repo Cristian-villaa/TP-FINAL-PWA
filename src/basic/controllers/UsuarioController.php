@@ -77,8 +77,8 @@ class UsuarioController extends Controller
             $model->nombre=$_POST['Usuario']['nombre'];
             $model->apellido=$_POST['Usuario']['apellido'];
             $model->password=password_hash($_POST['Usuario'] ['password'],PASSWORD_BCRYPT);
-            $model->authkey=md5(random_bytes(5));
-            $model->accesstoken=password_hash(random_bytes(5),PASSWORD_DEFAULT);
+            $model->authKey=md5(random_bytes(5));
+            $model->accessToken=password_hash(random_bytes(5),PASSWORD_DEFAULT);
                 if ($model->save()) {
                     return $this->redirect(['view', 'id' => $model->id]);
                 }else{
